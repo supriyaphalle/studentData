@@ -13,11 +13,14 @@ public class StudentData {
  
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
+    
     private int rollNumber;
-    private String studentName;
-    private String gender;
-    private String address;
+   
     private int marks;
+
+   @OneToOne(cascade = CascadeType.ALL)
+    private StudentInfo studentInfo;
 
     public int getMarks() {
         return marks;
@@ -35,35 +38,17 @@ public class StudentData {
         this.rollNumber = rollNumber;
     }
 
-    public String getStudentName() {
-        return studentName;
+    public StudentInfo getStudentInfo() {
+        return studentInfo;
     }
 
-    public void setStudentName(String studentName) {
-        this.studentName = studentName;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
+    public void setStudentInfo(StudentInfo studentInfo) {
+        this.studentInfo = studentInfo;
     }
 
     public StudentData(DataDto dataDto) {
         this.rollNumber = dataDto.rollNumber;
-        this.studentName = dataDto.studentName;
-        this.gender = dataDto.gender;
-        this.address = dataDto.address;
+       this.studentInfo =  dataDto.studentInfo;
         this.marks = dataDto.marks;
     }
 

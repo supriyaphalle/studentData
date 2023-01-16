@@ -31,17 +31,19 @@ public class StudentDataService {
             StudentData studentData=data.get();
             return new Response("Data Found", 200, studentData);
         }
-        throw new DataException("ROLL NUMBER DOES NOT EXISTS", ExceptionType.DATA_DOES_NOT_EXIT);
+        return new Response("Roll Number does not exits", 101,ExceptionType.DATA_DOES_NOT_EXIT);
     }
 
-    public Response addData( DataDto data){
+    public String addData( DataDto data){
         StudentData studentData = new StudentData(data);
         Optional <StudentData> rollNumber = studentRepository.findByRollNumber(data.rollNumber);
         if(rollNumber.isPresent()){
-            throw new DataException("DATA ALREADY EXISTS", ExceptionType.DATA_ALREADY_PRESENT);
+
+            throw new DataException("DATA_ALREADY_EXISTS", DataException.ExceptionType.DATA_ALREADY_PRESENT);
+       
         } 
         studentRepository.save(studentData);
-        return new Response("Data added Successfully", 200, studentData);    
+        return "Data added Successfully";    
     }
 
     public Response updateData( UpdateDataDto dataDto){
